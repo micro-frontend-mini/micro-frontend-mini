@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1"/>
+    <meta name="renderer" content="webkit" />
+    <title>micro-frontend-mini 微前端框架项目</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="//www.iseeit.cn/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="//www.iseeit.cn/favicon.ico" type="image/ico">
+    <!--[if lt IE 10]>
+      <script>
+        // 解决IE8下，webpack-dev-server 事件监听 addEventListener 报错问题
+        if (!window.addEventListener) {
+          window.addEventListener = function(name, callback, useCapture){
+            return window.attachEvent('on' + name, callback, useCapture);
+          }
+          window.removeEventListener = function(name, callback, useCapture){
+            return window.detachEvent('on' + name, callback, useCapture);
+          }
+        }
+      </script>
+      <script src="//cdn.ewt360.com/common/js/html5shiv.min.js"></script>
+      <script src="//cdn.ewt360.com/common/js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- polyfill 依赖 -->
+    <script src="//web.ewt360.com/common/babel-polyfill/prod/7.8.7/polyfill.min.js"></script>
+    <!--[if lt IE 10]>
+      <script src="//lib.baomitu.com/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
+      <script>
+        // 在 babel-polyfill 之后重置 Object.defineProperty 的 shim，以兼容IE8
+        // 解决IE8 defineProperty 报错问题，源码来自npm包 object-defineproperty-ie8
+        var origDefineProperty = Object.defineProperty;
+
+        var arePropertyDescriptorsSupported = function() {
+          var obj = {};
+          try {
+            origDefineProperty(obj, "x", { enumerable: false, value: obj });
+            for (var _ in obj) {
+              return false;
+            }
+            return obj.x === obj;
+          } catch (e) {
+            /* this is IE 8. */
+            return false;
+          }
+        };
+        var supportsDescriptors =
+          origDefineProperty && arePropertyDescriptorsSupported();
+
+        if (!supportsDescriptors) {
+          Object.defineProperty = function(a, b, c) {
+            //IE8支持修改元素节点的属性
+            if (origDefineProperty && a.nodeType == 1) {
+              return origDefineProperty(a, b, c);
+            } else {
+              // c.get 改为一个函数定义，等到执行 a[b] 的时候再执行 c.get();
+              // 解决 redux provider 的代码报错问题
+              a[b] = c.value || function() { return c.get && c.get(); };
+            }
+          };
+        }
+      </script>
+    <![endif]-->
+    <script src="//web.ewt360.com/common/classnames/prod/2.2.6/classnames.min.js"></script>
+    <script src="//web.ewt360.com/common/prop-types/prod/15.7.2/prop-types.min.js"></script>
+    <link rel="stylesheet" href="//web.ewt360.com/common/animate-css/prod/4.0.0/animate.min.css" />
+    <script>
+      window.matchMedia = window.matchMedia || function () {
+        return {
+          matches: false,
+          addListener: function () {},
+          removeListener: function () {}
+        };
+      };
+    </script>
+
+    <% if (htmlWebpackPlugin.options.NODE_ENV === 'development'){ %>
+      <script src="//web.ewt360.com/common/js-cookie/dev/2.2.1/js-cookie.js"></script>
+      <script src="//web.ewt360.com/common/lodash/dev/4.17.19/lodash.js"></script>
+      <script src="//web.ewt360.com/common/moment/dev/2.27.0/moment.js"></script>
+      <script crossorigin="anonymous" integrity="sha384-YYNJKjQ5BywhQHPmCmAZbnPpfjM+jqnQKbcxv09/sARJIN6r191VaBPh5B/5gFcd" src="//lib.baomitu.com/moment.js/2.27.0/locale/zh-cn.js"></script>
+      <script src="//web.ewt360.com/common/axios/dev/0.20.0/axios.js"></script>
+      <!-- React16 依赖 -->
+      <script src="//web.ewt360.com/common/react/dev/16.13.1/react.development.js"></script>
+      <script src="//web.ewt360.com/common/react/dev/16.13.1/react-dom.development.js"></script>
+      <script crossorigin="anonymous" integrity="sha384-SOeUwhSCrsT6rMcGAvMu3s6b6ZHJ6LBzJ8PiO5qqGRmeP76dgB4ZX/ezXzRL69Gi" src="//lib.baomitu.com/antd/4.4.2/antd-with-locales.js"></script>
+      <script>
+        /* 解决多版本同时运行全局命名冲突问题 */
+        window.ReactV16 = window.React;
+        window.ReactDOMV16 = window.ReactDOM;
+        window.antdV4 = window.antd;
+        try {
+          delete window.React;
+          delete window.ReactDOM;
+          delete window.antd;
+        } catch (e) {
+          console.error(e);
+        }
+      </script>
+
+      <!-- React14 依赖 -->
+      <script src="//web.ewt360.com/common/react/dev/0.14.9/react.js"></script>
+      <script src="//web.ewt360.com/common/react/dev/0.14.9/react-dom.js"></script>
+    <% }else{ %>
+      <script src="//web.ewt360.com/common/js-cookie/prod/2.2.1/js-cookie.min.js"></script>
+      <script src="//web.ewt360.com/common/lodash/prod/4.17.19/lodash.min.js"></script>
+      <script src="//web.ewt360.com/common/axios/prod/0.20.0/axios.min.js"></script>
+      <script src="//web.ewt360.com/common/moment/prod/2.27.0/moment.min.js"></script>
+      <script crossorigin="anonymous" integrity="sha384-/ngaRRk2t9zjrZwqfVYKvFdo3KdAzk0uEHnl1hqID8GC1bug3f5xIZ+GRwe7Adtn" src="//lib.baomitu.com/moment.js/2.27.0/locale/zh-cn.min.js"></script>
+
+      <!-- React16 依赖 -->
+      <script src="//web.ewt360.com/common/react/prod/16.13.1/react.production.min.js"></script>
+      <script src="//web.ewt360.com/common/react/prod/16.13.1/react-dom.production.min.js"></script>
+      <script crossorigin="anonymous" integrity="sha384-BLHJt35x7xB1l008HAIOHa5IOZLXBT8Di7QxNzuyAjFxk4eeJll4DpyfnrduMVro" src="//lib.baomitu.com/antd/4.4.2/antd-with-locales.min.js"></script>
+      <script>
+        /* 解决多版本同时运行全局命名冲突问题 */
+        window.ReactV16 = window.React;
+        window.ReactDOMV16 = window.ReactDOM;
+        window.antdV4 = window.antd;
+        try {
+          delete window.React;
+          delete window.ReactDOM;
+          delete window.antd;
+        } catch (e) {
+          console.error(e);
+        }
+      </script>
+
+      <!-- React14 依赖 -->
+      <script src="//web.ewt360.com/common/react.min-0.14.9.js"></script>
+      <script src="//web.ewt360.com/common/react-dom.min-0.14.9.js"></script>
+    <% } %>
+  </head>
+  <body>
+    <script>
+      // 解决 webpack 4 资源加载报错不支持 IE8 的问题
+      document.head = document.head || document.getElementsByTagName('head')[0];
+    </script>
+    <div id="app"></div>
+    <!--[if lt IE 10]>
+      <script src="//web.ewt360.com/web-www/upgradeYourBrowser/upgradeYourBrowser.js"></script>
+    <![endif]-->
+  </body>
+</html>

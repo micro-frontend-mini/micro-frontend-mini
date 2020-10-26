@@ -1,0 +1,66 @@
+.menu {
+  height: 60px;
+  background-color: #5a8bff;
+  color: #fff;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  padding: 0 20px;
+  z-index: 10;
+  .menu-item {
+    display: inline-block;
+    position: relative;
+    line-height: 60px;
+    height: 60px;
+    padding: 0 12px;
+    > a {
+      display: inline-block;
+      width: 100%;
+    }
+    cursor: pointer;
+    a {
+      color:#FFF;
+    }
+    &:hover {
+      background-color: #f60;
+      .sub-menu {
+        display: block;
+      }
+    }
+    .title {
+      :global(.iconfont.icon-triangle-down) {
+        font-size: 12px;
+      }
+    }
+  }
+  .sub-menu {
+    display: none;
+    min-width: 100%;
+    border-radius: 2px;
+    position: absolute;
+    padding: 8px 0;
+    top: 60px;
+    box-shadow: 0 3px 6px -4px rgba(0,0,0,.12), 0 6px 16px 0 rgba(0,0,0,.08), 0 9px 28px 8px rgba(0,0,0,.05);
+    color: rgba(0,0,0,.65);
+    background: #fff;
+    white-space: nowrap;
+    word-break: keep-all;
+    animation-duration: .5s;
+    .sub-menu-item {
+      line-height: 34px;
+      a {
+        color: rgba(0,0,0,.65);
+        display: inline-block;
+        padding: 0 20px;
+        width: 100%; // 让导航链接区域充满父容器
+      }
+      &:hover {
+        color: #5a8bff;
+        a {
+          color: #5a8bff;
+        }
+      }
+    }
+  }
+}

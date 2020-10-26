@@ -1,0 +1,19 @@
+@keyframes bend-root-config-animation-loading {
+  0%{
+      transform: rotate(0deg);
+
+  }
+  50%{
+      transform: rotate(180deg);
+  }
+  100%{
+      transform: rotate(360deg);
+  }
+}
+.bend-root-config-loading {
+  color: #5a8bff;
+  font-weight: bold;
+  font-size: 32px;
+  display: inline-block;
+  animation: bend-root-config-animation-loading 1.5s infinite linear;
+}
