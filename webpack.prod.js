@@ -11,10 +11,8 @@ module.exports = merge(
   {
     entry: path.resolve(__dirname, './src/index'),
     output: {
-      filename: 'micro-frontend-mini.js',
+      filename: 'root-config.js',
       path: path.resolve(__dirname, 'lib'),
-      library: 'micro-frontend-mini',
-      libraryTarget: 'umd',
     },
     mode: 'production',
     devtool: 'none',

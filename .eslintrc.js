@@ -24,7 +24,7 @@ module.exports = {
       },
       alias: {
         map: [
-          ['~', './examples'],
+          ['~', './src'],
         ],
       }
     },
