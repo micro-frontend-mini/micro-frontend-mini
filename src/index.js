@@ -214,7 +214,7 @@ const activeRelationProjectByActiveWhen = () => {
  *  },
  * ]
  */
-export const start = ({
+const start = ({
   rootNode,
   projects: initProjects,
 }) => {
@@ -236,6 +236,4 @@ export const start = ({
   activeRelationProjectByActiveWhen();
 };
 
-export default {
-  start,
-};
+module.exports = { start };

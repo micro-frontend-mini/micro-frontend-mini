@@ -2,8 +2,7 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpackConfigCommon = require('./webpack.common');
 
@@ -14,6 +13,8 @@ module.exports = merge(
     output: {
       filename: 'micro-frontend-mini.js',
       path: path.resolve(__dirname, 'lib'),
+      library: 'micro-frontend-mini',
+      libraryTarget: 'umd',
     },
     mode: 'production',
     devtool: 'none',
@@ -80,28 +81,6 @@ module.exports = merge(
           ],
         },
       ],
-    },
-    optimization: {
-      minimizer: [
-        new UglifyJsPlugin({
-          sourceMap: false,
-          exclude: /node_modules/,
-          uglifyOptions: {
-            ie8: true, // 解决ie下的关键字default的问题
-          },
-        }),
-        new OptimizeCSSAssetsPlugin({}),
-      ],
-      splitChunks: {
-        cacheGroups: {
-          styles: {
-            name: 'styles',
-            test: /\.(sa|sc|le)ss$/,
-            chunks: 'all',
-            enforce: true,
-          },
-        },
-      },
     },
     devServer: {
       // host: '172.16.58.54',

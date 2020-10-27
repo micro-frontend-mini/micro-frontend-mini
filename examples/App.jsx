@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import projectsDev from '~/config/projects.dev';
 import projectsProd from '~/config/projects.prod';
 import Menu from '~/components/Menu';
-import { start } from '../src'; // 引入微前端框架的启动函数
-
+// eslint-disable-next-line import/named
+import { start } from '../src';
 import '~/assets/styles/reset.scss';
 import style from './style.scss';
 
