@@ -1,6 +1,6 @@
 {
   "name": "micro-frontend-mini",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "微前端框架，无三方依赖，可兼容所有浏览器",
   "main": "./lib/micro-frontend-mini.js",
   "license": "MIT",
