@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { start } from 'micro-frontend-mini';
 import projectsDev from '~/config/projects.dev';
 import projectsProd from '~/config/projects.prod';
 import Menu from '~/components/Menu';
 // eslint-disable-next-line import/named
+import { start } from '../src';
 import '~/assets/styles/reset.scss';
 import style from './style.scss';
 
@@ -42,7 +42,7 @@ class App extends React.Component {
     return (
       <div className={style['micro-fe-root-config']}>
         <Menu data={navMenu} />
-        <div id="root-config-app" ref={(r) => { this.rootNode = r; }} className={style['micro-app']} />
+        <div id="micro-frontend-mini-app" ref={(r) => { this.rootNode = r; }} className={style['micro-app']} />
       </div>
     );
   }

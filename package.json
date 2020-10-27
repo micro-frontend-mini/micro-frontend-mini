@@ -1,7 +1,8 @@
 {
-  "name": "root-config",
+  "name": "micro-frontend-mini",
   "version": "1.0.1",
   "description": "微前端框架，无三方依赖，可兼容所有浏览器",
+  "main": "./lib/micro-frontend-mini.js",
   "license": "MIT",
   "scripts": {
     "start": "cross-env NODE_ENV=development BUILD_ENV=dev webpack-dev-server --config webpack.dev.js",
@@ -75,7 +76,6 @@
   "dependencies": {
     "core-js": "2",
     "jsonp": "^0.2.1",
-    "micro-frontend-mini": "^1.0.1",
     "object-assign": "^4.1.1",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",

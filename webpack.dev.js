@@ -9,7 +9,7 @@ const { NODE_ENV } = process.env;
 module.exports = merge(
   webpackConfigCommon,
   {
-    entry: path.resolve(__dirname, './src/App'),
+    entry: path.resolve(__dirname, './examples/App'),
     output: {
       filename: 'bundle.js',
       chunkFilename: '[id].[name].bundle.js',
@@ -19,7 +19,7 @@ module.exports = merge(
     devtool: 'inline-source-map',
     plugins: [
       new HtmlWebpackPlugin({
-        template: path.resolve(__dirname, './src/index.html'),
+        template: path.resolve(__dirname, './examples/index.html'),
         hash: false,
         NODE_ENV,
       }),
