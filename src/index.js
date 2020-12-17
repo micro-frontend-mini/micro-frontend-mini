@@ -36,11 +36,6 @@ const loadProject = (singleProject) => {
   }
 
   const { body } = document;
-  const appOld = document.getElementById(appName);
-  if (appOld) {
-    body.removeChild(appOld);
-  }
-
   const script = document.createElement('script');
   script.src = entry;
   const hookAfterOnload = () => {
@@ -61,6 +56,10 @@ const loadProject = (singleProject) => {
       if (currentActivedProject.appName !== appName) {
         // 如果不是第一次初始化项目，则清除上一个项目的全局对象
         delete window[currentActivedProject.appName];
+        // 删除上一个项目的全局加载函数，尝试释放内存
+        // 函数名称类似 window.webpackJsonptemplate_react14，而我们的项目名称类似 template-react14
+        // 所以需要 replace(/-/g, '_')
+        delete window[`webpackJsonp${currentActivedProject.appName.replace(/-/g, '_')}`];
       }
     } catch (e) {
       console.error(e);
